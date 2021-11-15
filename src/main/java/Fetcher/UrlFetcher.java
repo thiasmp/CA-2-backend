@@ -66,6 +66,20 @@ public class UrlFetcher {
         }
     }
 
+    static class PingAge implements Callable<AgeDTO> {
+        String url;
+
+        PingAge(String url) {
+            this.url = url;
+        }
+        @Override
+        public AgeDTO call() throws Exception {
+            String joke = HttpUtils.fetchData(url);
+            AgeDTO ageDTO = gson.fromJson(joke, AgeDTO.class);
+            return ageDTO
+        }
+    }
+
     public static OurDTO runParrallel() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newCachedThreadPool();
         List<String> urls = new ArrayList<>();
@@ -73,13 +87,15 @@ public class UrlFetcher {
         urls.add("https://catfact.ninja/fact");
         urls.add("https://dog.ceo/api/breeds/image/random");
         urls.add("https://api.genderize.io/?name=luc");
+        urls.add("https://api.agify.io?name=meelad");
 
         Future future1 = executor.submit(new PingBored(urls.get(0)));
         Future future2 = executor.submit(new PingCat(urls.get(1)));
         Future future3 = executor.submit(new PingDog(urls.get(2)));
         Future future4 = executor.submit(new PingGenderized(urls.get(3)));
+        Future future5 = executor.submit(new PingAge(urls.get(4)));
 
-        OurDTO jokes = new OurDTO((BoredDTO) future1.get(), (CatDTO) future2.get(), (DogDTO) future3.get(), (GenderizeDTO) future4.get());
+        OurDTO jokes = new OurDTO((BoredDTO) future1.get(), (CatDTO) future2.get(), (DogDTO) future3.get(), (GenderizeDTO) future4.get(),(AgeDTO) future5);
 
         return jokes;
     }
