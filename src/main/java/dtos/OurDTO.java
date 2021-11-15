@@ -26,6 +26,7 @@ public class OurDTO {
         this.probability = ageDTO.getProbability();
     }
 
+
     public String getActivity() {
         return activity;
     }

@@ -96,7 +96,6 @@ public class UrlFetcher {
         Future future5 = executor.submit(new PingAge(urls.get(4)));
 
         OurDTO jokes = new OurDTO((BoredDTO) future1.get(), (CatDTO) future2.get(), (DogDTO) future3.get(), (GenderizeDTO) future4.get(),(AgeDTO) future5);
-
         return jokes;
     }
 }
