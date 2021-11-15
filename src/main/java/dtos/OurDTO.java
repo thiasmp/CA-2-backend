@@ -8,6 +8,7 @@ public class OurDTO {
     private String name;
     private String gender;
     private String probability;
+    private String age;
 
     public OurDTO() {
     }
