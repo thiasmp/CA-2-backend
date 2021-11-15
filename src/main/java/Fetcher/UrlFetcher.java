@@ -76,7 +76,7 @@ public class UrlFetcher {
         public AgeDTO call() throws Exception {
             String joke = HttpUtils.fetchData(url);
             AgeDTO ageDTO = gson.fromJson(joke, AgeDTO.class);
-            return ageDTO
+            return ageDTO;
         }
     }
 
